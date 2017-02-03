@@ -1,5 +1,6 @@
 #include "string"
 #include "Exceptions.h"
+#include "iostream"
 
 using namespace std;
 
@@ -21,7 +22,19 @@ int exceptions::CMyException::getErrorCode() {
 	return errorCode;
 }
 
+void exceptions::CMyException::output() {
+	wcout << endl << L"Код ошибки: " << errorCode
+		<< endl << L"Функция-источник ошибки: " << funcName.data()
+		<< endl << L"Описание: '" << definition
+		<< L"'" << endl;
+}
+
 exceptions::CMyException1::CMyException1(int errorCode, string funcName) {
 	CMyException(errorCode, funcName);
 	definition.assign(L"Ошибка: Недопустимое имя файла");
+}
+
+exceptions::CMyException2::CMyException2(int errorCode, string funcName) {
+	CMyException(errorCode, funcName);
+	definition.assign(L"Ошибка: Чтение по смещению в файле в диапазоне 0x10 – 0x20.");
 }

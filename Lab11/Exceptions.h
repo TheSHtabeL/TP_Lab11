@@ -10,6 +10,7 @@ namespace exceptions {
 		int getErrorCode();
 		string getFuncName();
 		wstring getDefinition();
+		void output();
 	protected:
 		int errorCode;
 		string funcName;
