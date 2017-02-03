@@ -5,11 +5,12 @@
 #include "fstream"
 
 using namespace std;
+namespace functions {
+	ifstream* Func1();
+	ifstream* Func2(ifstream*);
+	void Func3(ifstream*);
 
-ifstream* Func1();
-ifstream* Func2();
-void Func3();
+	void FuncHandle();
 
-void FuncHandle();
-
+}
 #endif

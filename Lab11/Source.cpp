@@ -2,5 +2,5 @@
 #include "functions.h"
 
 void main() {
-	FuncHandle();
+	functions::FuncHandle();
 }
