@@ -30,11 +30,13 @@ void exceptions::CMyException::output() {
 }
 
 exceptions::CMyException1::CMyException1(int errorCode, string funcName) {
-	CMyException(errorCode, funcName);
+	this->errorCode = errorCode;
+	this->funcName = funcName;
 	definition.assign(L"Ошибка: Недопустимое имя файла");
 }
 
 exceptions::CMyException2::CMyException2(int errorCode, string funcName) {
-	CMyException(errorCode, funcName);
+	this->errorCode = errorCode;
+	this->funcName = funcName;
 	definition.assign(L"Ошибка: Чтение по смещению в файле в диапазоне 0x10 – 0x20.");
 }
