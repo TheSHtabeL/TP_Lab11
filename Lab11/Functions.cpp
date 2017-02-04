@@ -7,12 +7,12 @@
 using namespace std;
 using namespace exceptions;
 
-ifstream* functions::Func1() {
+wifstream* functions::Func1() {
 	/*Функция открытия файла в директории программы. Проверка на корректные название файла (!="name")
 	и расширение (!=".xml")*/
 	wstring fileName;
 	wstring testName;
-	ifstream* file;
+	wifstream* file;
 
 	wcout << L"Введите название файла: ";
 	getline(wcin, fileName);
@@ -23,7 +23,7 @@ ifstream* functions::Func1() {
 		}
 		testName.assign(fileName.substr(fileName.size() - 4, fileName.size() - 1));
 		if (testName.compare(L".xml") == 0) {
-			throw CMyException1(1, "Func1()");
+			throw CMyException1(1, "Func1()", fileName);
 		}
 	}
 	else if(fileName.length() == 4){
@@ -33,7 +33,7 @@ ifstream* functions::Func1() {
 		}
 	}
 
-	file = new ifstream(fileName);
+	file = new wifstream(fileName);
 	if (file->fail()) {
 		throw CMyException(2, "Func1()");
 	}
@@ -41,21 +41,29 @@ ifstream* functions::Func1() {
 	return file;
 }
 
-ifstream* functions::Func2(ifstream* file) {
-	char* byte = new char[1];
-	
-	while (!file->eof()) {
-		file->read(byte, 1);
-		if ((*byte >= 0x10) || (*byte <= 0x20)) {
-			throw CMyException2(3, "Func2()");
+wifstream* functions::Func2(wifstream* file) {
+	wchar_t* byte = new wchar_t[1];
+	wstring buffer = L"";
+
+	while (file->read(byte, 1)) {
+		buffer.push_back(*byte); //Чтение одного символа из файла
+		if ((*byte >= 0x10) && (*byte <= 0x20)) {
+			file->close();
+			delete file;
+			throw CMyException2(3, "Func2()", *byte);
 		}
 	}
+	cout << endl << "Чтение прошло успешно. Прочитанные данные:" << endl;
+	wcout << buffer << endl;
 
 	return file;
 }
 
-void functions::Func3(ifstream* file) {
+void functions::Func3(wifstream* file) {
+	file->clear(); //Очищаем флаги потока, чтобы получить доступ к курсору
 	if (file->tellg() > 0x400) {
+		file->close();
+		delete file;
 		throw CMyException(4, "Func3()");
 	}
 
@@ -64,7 +72,7 @@ void functions::Func3(ifstream* file) {
 }
 
 void functions::FuncHandle() {
-	ifstream* file;
+	wifstream* file;
 
 	try {
 		file = Func1();

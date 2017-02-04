@@ -29,14 +29,25 @@ void exceptions::CMyException::output() {
 		<< L"'" << endl;
 }
 
-exceptions::CMyException1::CMyException1(int errorCode, string funcName) {
+exceptions::CMyException1::CMyException1(int errorCode, string funcName, wstring alertName) {
 	this->errorCode = errorCode;
 	this->funcName = funcName;
+	this->name = alertName;
 	definition.assign(L"Ошибка: Недопустимое имя файла");
 }
 
-exceptions::CMyException2::CMyException2(int errorCode, string funcName) {
+void exceptions::CMyException1::output() {
+	CMyException::output();
+	wcout << L"Непрошедшая проверку комбинация символов: " << name << endl;
+}
+
+exceptions::CMyException2::CMyException2(int errorCode, string funcName, wchar_t value) {
 	this->errorCode = errorCode;
 	this->funcName = funcName;
+	this->value = value;
 	definition.assign(L"Ошибка: Чтение по смещению в файле в диапазоне 0x10 – 0x20.");
+}
+void exceptions::CMyException2::output() {
+	CMyException::output();
+	wcout << L"Значение, попавшее в диапазон: '" << value << "'"<< endl;
 }

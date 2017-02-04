@@ -6,9 +6,9 @@
 
 using namespace std;
 namespace functions {
-	ifstream* Func1();
-	ifstream* Func2(ifstream*);
-	void Func3(ifstream*);
+	wifstream* Func1();
+	wifstream* Func2(wifstream*);
+	void Func3(wifstream*);
 
 	void FuncHandle();
 

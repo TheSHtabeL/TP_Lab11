@@ -19,14 +19,18 @@ namespace exceptions {
 
 	class CMyException1 : public CMyException {
 	public:
-		CMyException1(int, string);
+		CMyException1(int, string, wstring);
+		void output();
 	private:
-
+		wstring name;
 	};
 
 	class CMyException2 : public CMyException {
 	public:
-		CMyException2(int, string);
+		CMyException2(int, string, wchar_t);
+		void output();
+	private:
+		wchar_t value;
 	};
 }
 
